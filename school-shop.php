@@ -4,36 +4,37 @@ Plugin Name: School Shop Setmore Integration
 Plugin URI: http://www.cranleigh.org
 Description: This plugin puts a bit of integration into the website for Setmore and the School Shop.
 Author: Fred Bradley
-Version: 1
+Version: 1.1.0
 Author URI: http://fred.im/
 */
 
 class cs_setmore {
-        static $add_script;
+        public $add_script;
 
-        static function init() {
-                add_shortcode("school-shop-book-now", array(__CLASS__, 'handle_shortcode'));
 
-                add_action('init', array(__CLASS__, 'register_script'));
-                add_action('wp_footer', array(__CLASS__, 'print_script'));
+        function __construct() {
+                add_shortcode("school-shop-book-now", array($this, 'handle_shortcode'));
+
+                add_action('init', array($this, 'register_script'));
+                add_action('wp_footer', array($this, 'print_script'));
 
         }
 
-	static function handle_shortcode($atts) {
-                self::$add_script = true;
+		function handle_shortcode($atts) {
+                $this->add_script = true;
 
 
                 // Actual shortcode handling here
 
-                return '<center><br /><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/shortBookingPage/4596b048-5959-4bde-9669-c30f963b5f71"><img border="none" src="https://my.setmore.com/images/bookappt/SetMore-book-button.png" alt="Book an$
-        }
+			return '<center><br /><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/shortBookingPage/4596b048-5959-4bde-9669-c30f963b5f71"><img border="none" src="https://my.setmore.com/images/bookappt/SetMore-book-button.png" alt="Book an appointment with Cranleigh School Shop using SetMore" /></a><br />&nbsp;</center>';
+			}
 
-	static function register_script() {
+		function register_script() {
                 wp_register_script('setmore_script', 'https://my.setmore.com/js/iframe/setmore_iframe.js', array('jquery'), time(), true);
         }
 
-	static function print_script() {
-                if (!self::$add_script)
+		function print_script() {
+                if (!$this->$add_script)
                         return;
 
                 wp_print_scripts('setmore_script');
@@ -41,4 +42,5 @@ class cs_setmore {
         }
 
 }
-cs_setmore::init();
+new cs_setmore();
+//cs_setmore::init();
