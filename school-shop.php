@@ -34,7 +34,7 @@ class cs_setmore {
         }
 
 		function print_script() {
-                if (!$this->$add_script)
+                if (!$this->add_script)
                         return;
 
                 wp_print_scripts('setmore_script');
