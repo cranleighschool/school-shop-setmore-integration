@@ -4,7 +4,7 @@ Plugin Name: School Shop Setmore Integration
 Plugin URI: http://www.cranleigh.org
 Description: This plugin puts a bit of integration into the website for Setmore and the School Shop.
 Author: Fred Bradley
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://fred.im/
 */
 
@@ -21,14 +21,13 @@ class cs_setmore {
         }
 
 		function handle_shortcode($atts) {
-			$this->add_script = true;
-			/*if (time() < strtotime("April 19") && time() < strtotime("October 1")):
-				return '<div class="alert alert-warning">Sorry, our Online Booking module is only available during the Summer Term and Summer Holidays. Please call the School Shop for any enquiries.</div>';
+			if (time() > strtotime("April 1st ".date("Y")) && time() < strtotime("October 1st ".date("Y"))):
+				$this->add_script;
+				return '<center><br /><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/shortBookingPage/4596b048-5959-4bde-9669-c30f963b5f71"><img border="none" src="https://my.setmore.com/images/bookappt/SetMore-book-button.png" alt="Book an appointment with Cranleigh School Shop using SetMore" /></a><br />&nbsp;</center>';
 			endif;
 
-			// Actual shortcode handling here
-*/
-			return '<center><br /><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/shortBookingPage/4596b048-5959-4bde-9669-c30f963b5f71"><img border="none" src="https://my.setmore.com/images/bookappt/SetMore-book-button.png" alt="Book an appointment with Cranleigh School Shop using SetMore" /></a><br />&nbsp;</center>';
+			return "<span class='text-warning'>The online booking system will be available between 1st April and 1st October</span>";
+
 			}
 
 		function register_script() {
@@ -45,5 +44,5 @@ class cs_setmore {
 
 }
 new cs_setmore();
-//cs_setmore::init();
+
 
