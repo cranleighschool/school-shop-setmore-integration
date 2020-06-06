@@ -4,7 +4,7 @@ Plugin Name: School Shop Setmore Integration
 Plugin URI: http://www.cranleigh.org
 Description: This plugin puts a bit of integration into the website for Setmore and the School Shop.
 Author: Fred Bradley
-Version: 1.1.2
+Version: 1.1.3
 Author URI: http://fred.im/
 */
 
@@ -21,7 +21,14 @@ class cs_setmore {
         }
 
 		function handle_shortcode($atts) {
-			if (time() > strtotime("April 1st ".date("Y")) && time() < strtotime("October 1st ".date("Y"))):
+			$args = shortcode_atts(
+				array(
+					'start'   => 'April 1st',
+					'end'   => 'October 1st',
+				),
+				$atts
+			);
+			if (time() > strtotime($args['start']) && time() < strtotime($args['end'])):
 				$this->add_script;
 				return '<center><br /><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/shortBookingPage/4596b048-5959-4bde-9669-c30f963b5f71"><img border="none" src="https://my.setmore.com/images/bookappt/SetMore-book-button.png" alt="Book an appointment with Cranleigh School Shop using SetMore" /></a><br />&nbsp;</center>';
 			endif;
