@@ -26,7 +26,7 @@
 		{
 			$args = shortcode_atts(
 				array(
-					'start' => 'April 1st',
+					'start' => 'May 9th',
 					'end'   => 'October 1st',
 				),
 				$atts
